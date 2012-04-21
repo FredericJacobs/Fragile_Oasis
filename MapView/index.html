@@ -11,6 +11,7 @@
     <script type="text/javascript"
       src="http://maps.googleapis.com/maps/api/js?sensor=true">
     </script>
+	
     <script type="text/javascript">
       function initialize() {
         var myOptions = {
@@ -20,10 +21,18 @@
         };
         map = new google.maps.Map(document.getElementById("map_canvas"),
             myOptions);
+			
+			ft2json.query(
+			    'SELECT * FROM 1j1kKW9s9CrtZ6_o6MdC-xb0YNWb73rQQYENmzQ', callback (result) );
+			
+			function callback (result){
+				console.log(result);
+			}
+			
 
 		    if(navigator.geolocation) {
 	          navigator.geolocation.getCurrentPosition(function(position) {
-	            var pos = new google.maps.LatLng(position.coords.latitude,
+	            pos = new google.maps.LatLng(position.coords.latitude,
 	                                             position.coords.longitude);
 
 	            var infowindow = new google.maps.InfoWindow({
@@ -67,6 +76,11 @@
 			});
 			marker.setAnimation(google.maps.Animation.DROP);
 			// To add the marker to the map, call setMap();
+			
+			google.maps.event.addListener(marker, 'click', function() {
+			    alert("Popup should show up")
+			  });
+			
 			marker.setMap(map);
 			
       }	
