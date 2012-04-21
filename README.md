@@ -2,4 +2,5 @@ Fragile Oasis
 =============
 
 Backend dependencies:
-* easy_install python-fusiontables
+* python-fusiontables
+* python-requests
