@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>Fragile Oasis</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Fragile Oasis</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
 	
 	<!-- Styles -->
-    <link href="styles/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-	<link href="styles/main.less" rel="stylesheet/less" type="text/css">
+		<link href="styles/bootstrap.css" rel="stylesheet" type="text/css">
+		<link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+		<link href="styles/main.less" rel="stylesheet/less" type="text/css">
+		<link href="styles/popup.less" rel="stylesheet/less" type="text/css">
 	
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
 	
-	<script src="scripts/less.js"></script>
-	<script src="scripts/protovis.js"></script>
-	<script src="scripts/bootstrap.js"></script>
+	<!-- Scripts -->
+	
+	<script src="scripts/libs/less.js"></script>
+	<script src="scripts/libs/protovis.js"></script>
+	<script src="scripts/libs/bootstrap.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script src="scripts/map.js"></script>
+	<script src="scripts/popup.js"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
 </head>
 <body onload="initialize()">
@@ -31,6 +34,8 @@
 			<a class="brand" href="/">Fragile Oasis</a>
 			<ul class="nav">
 				<li class="active"><a href="">Map</a></li>
+				<li><a href="graph.html">Graph Test</a></li>
+				<li><a href="popup.html">Pop-up Test</a></li>
 			</ul>
 			<ul class="nav pull-right">
 				<li><a href="">Log in</a></li>
@@ -38,14 +43,73 @@
 		</div>
 	</div>
 </div>
-<div class="container">
-	<div class="page-header">
-		<h1>Map</h1>
-	</div>
-	<div id="map_canvas"></div>
-	<footer>
-		<p><a href="http://www.fragileoasis.org/">Fragile Oasis</a> developed at <a href="http://spaceappschallenge.org/">Space Apps Challenge</a> - 2012</p>
-	</footer>
-</div>
-</body>
+  <meta charset="utf-8">
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+	<script>
+  	function initialize() {
+		var myOptions = {
+          center: new google.maps.LatLng(46.519776,6.565533),
+          zoom: 3,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById("map_canvas"),
+            myOptions);
+
+	    getData(3616702);
+	}
+
+	function getData(table) {
+	    // Builds a Fusion Tables SQL query and hands the result to dataHandler()
+
+	    var queryUrlHead = 'http://www.google.com/fusiontables/api/query?sql=';
+	    var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
+
+	    // write your SQL as normal, then encode it
+	    var query = "SELECT * FROM " + table;
+	    var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
+
+	    var jqxhr = $.get(queryurl, dataHandler, "jsonp");
+	}
+
+	function dataHandler(d) {
+	    // get the actual data out of the JSON object
+	    var data = d.table.rows;
+	
+		console.log(data);
+
+	    // loop through all rows to add them to the map
+	    for (var i = 0; i < data.length; i++) {
+
+	        // Per the expected data format [25,-7.854167,131.3026], 
+	        // lat is stored in d[row][1] and lon is stored in d[row][2]
+	        // probability is the first element of the array
+			positionArray = data[i][2].split(',');
+	        var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
+
+	        var marker = new google.maps.Marker({
+	            position: latlon,
+	            rowid: i,
+	            map: map
+	        });
+			
+			var locationObject = data[i];
+			
+	        var fn = markerClick(map, marker, locationObject);
+			
+	        google.maps.event.addListener(marker, 'click', fn);
+	    }
+	}
+
+	function markerClick(map, m, locationObject) {
+	    return function() {
+	        popup(locationObject)
+	    };
+	}
+</script>
+ </head>
+  <body onload="initialize()">
+    <div id="map_canvas" style="width:100%; height:100%"></div>
+  </body>
 </html>
