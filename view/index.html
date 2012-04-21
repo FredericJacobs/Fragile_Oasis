@@ -9,7 +9,7 @@
 	
 	<!-- Styles -->
 		<link href="styles/bootstrap.css" rel="stylesheet" type="text/css">
-		<link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+		<!--link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css"-->
 		<link href="styles/main.less" rel="stylesheet/less" type="text/css">
 		<link href="styles/popup.less" rel="stylesheet/less" type="text/css">
 	
@@ -22,39 +22,36 @@
 	<script src="scripts/libs/jquery.js"></script>
 	<script src="scripts/libs/less.js"></script>
 	<script src="scripts/libs/protovis.js"></script>
-	<script src="scripts/libs/bootstrap.js"></script>
+	<!--script src="scripts/libs/bootstrap.js"></script-->
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script src="scripts/popup.js"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
 <script>
 
 function initialize() {
 	var myOptions = {
-     center: new google.maps.LatLng(46.519776,6.565533),
-     zoom: 3,
-     mapTypeId: google.maps.MapTypeId.ROADMAP
-   };
-   map = new google.maps.Map(document.getElementById("map_canvas"),
-       myOptions);
+		center: new google.maps.LatLng(46.519776,6.565533),
+		zoom: 3,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	};
+	map = new google.maps.Map(document.getElementById("map_canvas"),
+	myOptions);
 
-getData(3616702);
+	getData(3616702);
 
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+			pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-      map.setCenter(pos);
-
-    }, function() {
-      handleNoGeolocation(true);
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleNoGeolocation(false);
-  }
+			map.setCenter(pos);
+		}, function() {
+			handleNoGeolocation(true);
+		});
+	} else {
+		// Browser doesn't support Geolocation
+		handleNoGeolocation(false);
+	}
 
 
 	function handleNoGeolocation(errorFlag) {
@@ -66,24 +63,25 @@ getData(3616702);
     		var content = 'Error: Your browser doesn\'t support geolocation.';
   		}
 
-	var options = {
-    	map: map,
-    	position: new google.maps.LatLng(60, 105),
-    	content: content
-	};
+		var options = {
+			map: map,
+			position: new google.maps.LatLng(60, 105),
+			content: content
+		};
+	}
 
-function getData(table) {
-    // Builds a Fusion Tables SQL query and hands the result to dataHandler()
+	function getData(table) {
+		// Builds a Fusion Tables SQL query and hands the result to dataHandler()
 
-    var queryUrlHead = 'http://www.google.com/fusiontables/api/query?sql=';
-    var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
+		var queryUrlHead = 'http://www.google.com/fusiontables/api/query?sql=';
+		var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
 
-    // write your SQL as normal, then encode it
-    var query = "SELECT * FROM " + table;
-    var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
+		// write your SQL as normal, then encode it
+		var query = "SELECT * FROM " + table;
+		var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
 
-    var jqxhr = $.get(queryurl, dataHandler, "jsonp");
-}
+		var jqxhr = $.get(queryurl, dataHandler, "jsonp");
+	}
 
 	function dataHandler(d) {
     // get the actual data out of the JSON object
@@ -122,16 +120,14 @@ function getData(table) {
 
 }
 </script>
- </head>
-  <body onload="initialize()">
+</head>
+<body onload="initialize()">
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="brand" href="/">Fragile Oasis</a>
 			<ul class="nav">
 				<li class="active"><a href="">Map</a></li>
-				<li><a href="graph.html">Graph Test</a></li>
-				<li><a href="popup.html">Pop-up Test</a></li>
 			</ul>
 			<ul class="nav pull-right">
 				<li><a href="">Log in</a></li>
@@ -140,13 +136,10 @@ function getData(table) {
 	</div>
 </div>
 <div class="container">
-	<div class="page-header">
+	<!--div class="page-header">
 		<h1>Map</h1>
-	</div>
+	</div-->
 	<div id="map_canvas"></div>
-	<footer>
-		<p><a href="http://www.fragileoasis.org/">Fragile Oasis</a> developed at <a href="http://spaceappschallenge.org/">Space Apps Challenge</a> - 2012</p>
-	</footer>
 </div>
 </body>
 </html>
