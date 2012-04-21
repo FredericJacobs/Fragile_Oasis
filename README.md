@@ -1,6 +1,9 @@
 # Fragile Oasis #
 -----------------
 
+**Categories:**
+communication, community, education, energy, environment, food, health, peace, research, water
+
 
 ### Backend dependencies ###
 * python-fusiontables
