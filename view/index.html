@@ -96,8 +96,11 @@
 	            rowid: i,
 	            map: map
 	        });
-	
+			
+			var locationObject = data[i];
+			
 	        var fn = markerClick(map, marker, locationObject);
+			
 	        google.maps.event.addListener(marker, 'click', fn);
 	    }
 	}
