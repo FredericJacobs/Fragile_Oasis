@@ -27,7 +27,6 @@
 	<script src="scripts/popup.js"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
 	
 </head>
 <body onload="initialize()">
@@ -51,7 +50,7 @@
 <script>
 
 function initialize() {
-var myOptions = {
+	var myOptions = {
      center: new google.maps.LatLng(46.519776,6.565533),
      zoom: 3,
      mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -75,24 +74,22 @@ getData(3616702);
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
   }
-}
-
-}
 
 
-function handleNoGeolocation(errorFlag) {
-  if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
-  } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
-  }
+	function handleNoGeolocation(errorFlag) {
+  		if (errorFlag) {
+    		var content = 'Error: The Geolocation service failed.';
+  		} 
+		
+		else {
+    		var content = 'Error: Your browser doesn\'t support geolocation.';
+  		}
 
-  var options = {
-    map: map,
-    position: new google.maps.LatLng(60, 105),
-    content: content
-};
-
+	var options = {
+    	map: map,
+    	position: new google.maps.LatLng(60, 105),
+    	content: content
+	};
 
 function getData(table) {
     // Builds a Fusion Tables SQL query and hands the result to dataHandler()
