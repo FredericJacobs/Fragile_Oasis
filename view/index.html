@@ -20,9 +20,11 @@
 	<script src="scripts/less.js"></script>
 	<script src="scripts/protovis.js"></script>
 	<script src="scripts/bootstrap.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script src="scripts/map.js"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
 </head>
-<body>
+<body onload="initialize()">
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -40,8 +42,7 @@
 	<div class="page-header">
 		<h1>Map</h1>
 	</div>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque congue viverra elit, nec varius ligula tincidunt vel. Sed libero arcu, fermentum in dignissim nec, bibendum ut diam. Ut rhoncus ipsum quis lectus consequat ac facilisis nisl vehicula. Nam imperdiet dignissim orci vel venenatis. Nam eu dolor vitae lorem convallis interdum at non velit. Proin eu dui in orci pharetra pharetra. Proin luctus, lacus id fringilla molestie, nulla lorem posuere sem, quis egestas nunc quam eu diam. Proin feugiat, ante non pellentesque egestas, sapien ipsum dignissim ante, sed dapibus eros lorem eget enim. Aliquam erat volutpat. Aliquam sodales auctor elit ac dapibus.</p>
-	<p>Nullam id magna vehicula neque fermentum dapibus. Nam quis libero at elit vestibulum suscipit elementum id metus. Donec pellentesque ligula non turpis vulputate interdum. Quisque pellentesque rhoncus turpis, quis dictum lorem aliquet sit amet. Nulla accumsan tincidunt felis ac posuere. Maecenas molestie rhoncus mattis. Praesent lorem dui, dapibus nec tempor ut, pulvinar nec odio. Curabitur ac dolor nibh, sollicitudin gravida sem. Maecenas tristique dui eu sem imperdiet porttitor congue tellus congue. Aenean consequat aliquam congue. Quisque vehicula metus vitae urna condimentum pharetra. In hac habitasse platea dictumst. Duis non enim justo. Cras adipiscing diam vehicula augue laoreet elementum. Pellentesque quis erat tellus. Nam eget sem orci.</p>
+	<div id="map_canvas"></div>
 	<footer>
 		<p><a href="http://www.fragileoasis.org/">Fragile Oasis</a> developed at <a href="http://spaceappschallenge.org/">Space Apps Challenge</a> - 2012</p>
 	</footer>
