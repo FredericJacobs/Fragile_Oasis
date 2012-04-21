@@ -1,5 +1,7 @@
 *.py[co]
 
+.DS_Store
+
 # Packages
 *.egg
 *.egg-info
@@ -28,3 +30,4 @@ pip-log.txt
 
 # ignore Google password
 password.txt
+
