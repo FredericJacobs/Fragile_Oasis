@@ -50,6 +50,35 @@
 
 <script>
 
+function initialize() {
+var myOptions = {
+     center: new google.maps.LatLng(46.519776,6.565533),
+     zoom: 3,
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+   };
+   map = new google.maps.Map(document.getElementById("map_canvas"),
+       myOptions);
+
+getData(3616702);
+
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+      map.setCenter(pos);
+
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
+
+}
+
 
 function handleNoGeolocation(errorFlag) {
   if (errorFlag) {
@@ -64,34 +93,6 @@ function handleNoGeolocation(errorFlag) {
     content: content
 };
 
- 	function initialize() {
-	var myOptions = {
-         center: new google.maps.LatLng(46.519776,6.565533),
-         zoom: 3,
-         mapTypeId: google.maps.MapTypeId.ROADMAP
-       };
-       map = new google.maps.Map(document.getElementById("map_canvas"),
-           myOptions);
-
-    getData(3616702);
-
-	  if(navigator.geolocation) {
-	    navigator.geolocation.getCurrentPosition(function(position) {
-	      pos = new google.maps.LatLng(position.coords.latitude,
-	                                       position.coords.longitude);
-
-	      map.setCenter(pos);
-
-	    }, function() {
-	      handleNoGeolocation(true);
-	    });
-	  } else {
-	    // Browser doesn't support Geolocation
-	    handleNoGeolocation(false);
-	  }
-	}
-
-}
 
 function getData(table) {
     // Builds a Fusion Tables SQL query and hands the result to dataHandler()
