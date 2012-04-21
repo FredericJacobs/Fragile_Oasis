@@ -23,8 +23,14 @@
 
 		    if(navigator.geolocation) {
 	          navigator.geolocation.getCurrentPosition(function(position) {
-	            pos = new google.maps.LatLng(position.coords.latitude,
+	            var pos = new google.maps.LatLng(position.coords.latitude,
 	                                             position.coords.longitude);
+
+	            var infowindow = new google.maps.InfoWindow({
+	              map: map,
+	              position: pos,
+	              content: 'Location found using HTML5.'
+	            });
 
 	            map.setCenter(pos);
 	          }, function() {
@@ -37,13 +43,26 @@
 	      }
 
 	      function handleNoGeolocation(errorFlag) {
-			if (!errorFlag){
+	        if (errorFlag) {
+	          var content = 'Error: The Geolocation service failed.';
+	        } else {
 	          var content = 'Error: Your browser doesn\'t support geolocation.';
-			  alert (content);
 	        }
 
+	        var options = {
+	          map: map,
+	          position: new google.maps.LatLng(60, 105),
+	          content: content
+	        };
+	
+	
+
+			//Loading the Google Maps Overlay
+			
+			var myLatlng = new google.maps.LatLng(0,0);
+
 			var marker = new google.maps.Marker({
-			    position: pos,
+			    position: myLatlng,
 			    title:""
 			});
 			marker.setAnimation(google.maps.Animation.DROP);
