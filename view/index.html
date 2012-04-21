@@ -26,6 +26,9 @@
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script src="scripts/popup.js"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+	
 </head>
 <body onload="initialize()">
 <div class="navbar navbar-fixed-top">
@@ -43,70 +46,100 @@
 		</div>
 	</div>
 </div>
-  <meta charset="utf-8">
+<meta charset="utf-8">
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
-	<script>
-  	function initialize() {
-		var myOptions = {
-          center: new google.maps.LatLng(46.519776,6.565533),
-          zoom: 3,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        map = new google.maps.Map(document.getElementById("map_canvas"),
-            myOptions);
+<script>
 
-	    getData(3616702);
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+
+  var options = {
+    map: map,
+    position: new google.maps.LatLng(60, 105),
+    content: content
+};
+
+ 	function initialize() {
+	var myOptions = {
+         center: new google.maps.LatLng(46.519776,6.565533),
+         zoom: 3,
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+       };
+       map = new google.maps.Map(document.getElementById("map_canvas"),
+           myOptions);
+
+    getData(3616702);
+
+	  if(navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(function(position) {
+	      pos = new google.maps.LatLng(position.coords.latitude,
+	                                       position.coords.longitude);
+
+	      map.setCenter(pos);
+
+	    }, function() {
+	      handleNoGeolocation(true);
+	    });
+	  } else {
+	    // Browser doesn't support Geolocation
+	    handleNoGeolocation(false);
+	  }
 	}
 
-	function getData(table) {
-	    // Builds a Fusion Tables SQL query and hands the result to dataHandler()
+}
 
-	    var queryUrlHead = 'http://www.google.com/fusiontables/api/query?sql=';
-	    var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
+function getData(table) {
+    // Builds a Fusion Tables SQL query and hands the result to dataHandler()
 
-	    // write your SQL as normal, then encode it
-	    var query = "SELECT * FROM " + table;
-	    var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
+    var queryUrlHead = 'http://www.google.com/fusiontables/api/query?sql=';
+    var queryUrlTail = '&jsonCallback=?'; // ? could be a function name
 
-	    var jqxhr = $.get(queryurl, dataHandler, "jsonp");
-	}
+    // write your SQL as normal, then encode it
+    var query = "SELECT * FROM " + table;
+    var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
 
-	function dataHandler(d) {
-	    // get the actual data out of the JSON object
-	    var data = d.table.rows;
-	
-		console.log(data);
+    var jqxhr = $.get(queryurl, dataHandler, "jsonp");
+}
 
-	    // loop through all rows to add them to the map
-	    for (var i = 0; i < data.length; i++) {
+function dataHandler(d) {
+    // get the actual data out of the JSON object
+    var data = d.table.rows;
 
-	        // Per the expected data format [25,-7.854167,131.3026], 
-	        // lat is stored in d[row][1] and lon is stored in d[row][2]
-	        // probability is the first element of the array
-			positionArray = data[i][2].split(',');
-	        var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
+	console.log(data);
 
-	        var marker = new google.maps.Marker({
-	            position: latlon,
-	            rowid: i,
-	            map: map
-	        });
-			
-			var locationObject = data[i];
-			
-	        var fn = markerClick(map, marker, locationObject);
-			
-	        google.maps.event.addListener(marker, 'click', fn);
-	    }
-	}
+    // loop through all rows to add them to the map
+    for (var i = 0; i < data.length; i++) {
 
-	function markerClick(map, m, locationObject) {
-	    return function() {
-	        popup(locationObject)
-	    };
-	}
+        // Per the expected data format [25,-7.854167,131.3026], 
+        // lat is stored in d[row][1] and lon is stored in d[row][2]
+        // probability is the first element of the array
+		positionArray = data[i][2].split(',');
+        var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
+
+        var marker = new google.maps.Marker({
+            position: latlon,
+            rowid: i,
+            map: map
+        });
+		
+		var locationObject = data[i];
+		
+        var fn = markerClick(map, marker, locationObject);
+		
+        google.maps.event.addListener(marker, 'click', fn);
+    }
+}
+
+function markerClick(map, m, locationObject) {
+    return function() {
+        popup(locationObject)
+    };
+}
 </script>
  </head>
   <body onload="initialize()">
