@@ -1,0 +1,23 @@
+# base schema extracted from the Fragile Oasis dataset (JSON feed)
+# maps 1-to-1 to a Google Fusion Tables schema
+
+{
+  "Fragile Oasis":
+  {
+  "category":"STRING",
+  "comments":"NUMBER",
+  "cords":"LOCATION",
+  "description":"STRING",
+  "featured":"STRING",
+  "followers":"NUMBER",
+  "id":"NUMBER",
+  "location":"LOCATION",
+  "photos":"STRING",
+  "shares":"NUMBER",
+  "title":"STRING",
+  "url":"STRING",
+  "votes":"NUMBER",
+  "website":"STRING
+  }
+}
+
