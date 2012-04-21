@@ -22,7 +22,7 @@
 	<script src="scripts/libs/protovis.js"></script>
 	<script src="scripts/libs/bootstrap.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script src="scripts/map.js"></script>
+	<script src="scripts/popup.js"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
 </head>
 <body onload="initialize()">
@@ -96,6 +96,7 @@
 	            rowid: i,
 	            map: map
 	        });
+	
 	        var fn = markerClick(map, marker, locationObject);
 	        google.maps.event.addListener(marker, 'click', fn);
 	    }
@@ -103,7 +104,7 @@
 
 	function markerClick(map, m, locationObject) {
 	    return function() {
-	        pop
+	        popup(locationObject)
 	    };
 	}
 </script>
