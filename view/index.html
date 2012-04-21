@@ -85,39 +85,41 @@ function getData(table) {
     var jqxhr = $.get(queryurl, dataHandler, "jsonp");
 }
 
-function dataHandler(d) {
+	function dataHandler(d) {
     // get the actual data out of the JSON object
-    var data = d.table.rows;
+    	var data = d.table.rows;
 
-	console.log(data);
+		console.log(data);
 
     // loop through all rows to add them to the map
-    for (var i = 0; i < data.length; i++) {
+    	for (var i = 0; i < data.length; i++) {
 
         // Per the expected data format [25,-7.854167,131.3026], 
         // lat is stored in d[row][1] and lon is stored in d[row][2]
         // probability is the first element of the array
-		positionArray = data[i][2].split(',');
-        var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
+			positionArray = data[i][2].split(',');
+        	var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
 
-        var marker = new google.maps.Marker({
+        	var marker = new google.maps.Marker({
             position: latlon,
             rowid: i,
             map: map
         });
 		
-		var locationObject = data[i];
+			var locationObject = data[i];
 		
-        var fn = markerClick(map, marker, locationObject);
+        	var fn = markerClick(map, marker, locationObject);
 		
-        google.maps.event.addListener(marker, 'click', fn);
-    }
-}
+        	google.maps.event.addListener(marker, 'click', fn);
+    	}
+	}
 
-function markerClick(map, m, locationObject) {
-    return function() {
-        popup(locationObject)
-    };
+	function markerClick(map, m, locationObject) {
+    	return function() {
+        	popup(locationObject)
+    	};
+	}
+
 }
 </script>
  </head>
