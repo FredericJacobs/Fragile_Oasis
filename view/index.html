@@ -123,11 +123,10 @@ function initialize() {
 
     // loop through all rows to add them to the map
     	for (var i = 0; i < data.length; i++) {
-
         // Per the expected data format [25,-7.854167,131.3026], 
         // lat is stored in d[row][1] and lon is stored in d[row][2]
         // probability is the first element of the array
-			positionArray = data[i][2].split(',');
+			positionArray = data[i][4].split(',');
         	var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
 
         	var marker = new google.maps.Marker({
