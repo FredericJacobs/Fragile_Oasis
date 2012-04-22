@@ -21,13 +21,16 @@ SCHEMA = {
   ('website', 'STRING'),
   ('cords', 'LOCATION'),
   ('city', 'LOCATION'), # augmented with OpenStreetMap
+  ('cityinfo', 'LOCATION'), # augmented with Freebase
   ('country', 'LOCATION'), # augmented with OpenStreetMap
+  ('countryinfo', 'LOCATION'), # augmented with Freebase
   ('description', 'STRING'),
   ('votes', 'NUMBER'),
   ('location', 'LOCATION'),
   ('comments', 'NUMBER'),
   ('featured', 'STRING'),
   ('followers', 'NUMBER'),
+  ('followersinfo', 'NUMBER'), # augmented by scraping fragileoasis.org
   ('shares', 'NUMBER'),
   ('id', 'NUMBER'),
   ('photos', 'STRING'),
