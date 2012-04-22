@@ -10,8 +10,8 @@
 	
 	<!-- Styles -->
 		<link href="styles/bootstrap.css" rel="stylesheet" type="text/css">
-		<link href="styles/popover.css" rel="stylesheet" type="text/css">
 		<!--link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css"-->
+		<link href="styles/popover.css" rel="stylesheet" type="text/css">
 		<link href="styles/main.less" rel="stylesheet/less" type="text/css">
 		<link href="styles/popup.less" rel="stylesheet/less" type="text/css">
 
@@ -33,8 +33,6 @@
 
 <script>
 function initialize() {
-	
-	
 	var mobile = function(){
 		return {
 			detect:function(){
@@ -125,11 +123,10 @@ function initialize() {
 
     // loop through all rows to add them to the map
     	for (var i = 0; i < data.length; i++) {
-
         // Per the expected data format [25,-7.854167,131.3026], 
         // lat is stored in d[row][1] and lon is stored in d[row][2]
         // probability is the first element of the array
-			positionArray = data[i][2].split(',');
+			positionArray = data[i][4].split(',');
         	var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
 
         	var marker = new google.maps.Marker({
@@ -155,34 +152,34 @@ function initialize() {
 }
 </script>
 
-<script>
-
-function showPopOver (){
-	document.getElementById("popover1").style.display = "block"; 
-}
-
-
-</script>
-
-
 </head>
 <body onload="initialize()">
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="brand" href="/">Fragile Oasis</a>
-			<ul class="nav">
+			<ul class="nav" id="nav">
 				<li class="active"><a href="">Map</a></li>
-				<li class="inactive"><a href="javascript:showPopOver()">Categories</a></li>
-			</ul>
-			<ul class="nav pull-right">
-				<li><a href="">Log in</a></li>
+				<li id="categories"><a href="javascript:showPopOver()">Categories</a></li>
 			</ul>
 		</div>
 	</div>
 </div>
 <div class="container">
-	<div class="popover" id="popover1">
+	<div id="popup">
+		<div class="mask" onclick="closePopup()">
+			<div class="frame">
+				<div id="close" onclick="closePopup()"><i class="icon-remove"></i></div>
+				<div class="scrollbar"></div>
+				<div class="wrapper">
+					<div class="content">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+	<div class="popover" id="popover">
         <div class="popover-content">
             <div class="arrow"><span></span></div>
             <div class="popover-body">
