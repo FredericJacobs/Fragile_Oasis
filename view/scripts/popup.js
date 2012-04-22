@@ -1,9 +1,8 @@
 // Scollbar
-var scrollbarVisible = true;
+var scrollbarVisible = false;
 $().ready(function() {
 	$(".wrapper").bind("scroll", function() {updateScrollbar()});
 	$(window).bind("resize", function() {updateScrollbar()});
-	updateScrollbar();
 });
 
 function updateScrollbar() {
@@ -26,20 +25,21 @@ function updateScrollbar() {
 		$("#popup .scrollbar").css({height: scrollbarHeight});
 		// Position
 		s = $("#popup .wrapper").scrollTop();
-		wrapperWithMargin = (wrapperHeight-10)
-		scrollPos = (wrapperWithMargin-scrollbarHeight)*(s/(contentHeight-wrapperWithMargin))+10;
+		wrapperWithMargin = (wrapperHeight-30)
+		scrollPos = (wrapperWithMargin-scrollbarHeight)*(s/(contentHeight-wrapperWithMargin))+30;
 		$("#popup .scrollbar").css({top: scrollPos});
 	}
 }
 
 // Get Data
 function popup(json) {
-	console.log("Pop-up JSON", json);
 	// Content
+	console.log(json);
 	var title = json[0];
 	var type = json[1].charAt(0).toUpperCase() + json[1].slice(1);
 	var location = json[7]+((json[5] == "" || json[7] == "") ? "" : ", ")+json[5];
 	var description = json[9];
+	var loc = json[11].split(' ').join('');
 	var imgs = $.parseJSON(json[18]);
 	var link1 = json[6];
 	var link2 = json[8];
@@ -48,6 +48,7 @@ function popup(json) {
 		links.push(link1);
 	if(link2 != "")
 		links.push(link2);
+	var followers = $.parseJSON(json[15]);
 	
 	var html = "";
 	html += "<h1>"+location+" – "+type+"</h1>";
@@ -57,7 +58,13 @@ function popup(json) {
 		var img = imgs[i];
 		html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a> ';
 	}
+	html += "</div>";
 	
+	html += '<div class="followers">';
+	for(key in followers) {
+		html += '<a href="'+key+'">'+followers[key]+"</a> ";
+	}
+
 	html += "</div>";
 	html += "<p>"+description+"</p>";
 
@@ -65,6 +72,8 @@ function popup(json) {
 		var link = links[i];
 		html += '<iframe src="'+link+'"/>';
 	}
+
+	console.log(loadTweets(loc));
 	
 	$("#popup .content").html(html);
 	
@@ -86,10 +95,17 @@ function popup(json) {
 	$("#popup").animate({opacity: 1}, speed, function() {
 		$("#popup .frame").animate({top: 20, bottom: 20}, speed, function() {
 			$("#popup .frame").animate({left: 20, right: 20}, speed, function() {
+				updateScrollbar();
 				$("#popup .content").animate({opacity: 1}, speed);
 			});
 		});
 	});
+
+	function loadTweets(loc) {
+		var range = 10;
+		var tweets = $.get("http://search.twitter.com/search.json?rpp=10&include_entities=true&result_type=mixed&geocode="+loc+","+range+"mi");
+		return html;
+	}
 }
 
 function closePopup() {
@@ -108,5 +124,7 @@ function closePopup() {
 			left: marginLeft,
 			right: marginLeft
 		});
+		$("#popup .scrollbar").css({visibility: "hidden"});
+		scrollbarVisible = false;
 	});
 }
