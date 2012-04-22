@@ -5,7 +5,7 @@
 		.popover {
 			position: absolute;
 			display: none;
-			z-index: 20;
+			z-index: 2030;
 		}
         
         .popover .popover-content {
