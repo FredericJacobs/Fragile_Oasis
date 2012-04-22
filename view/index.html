@@ -14,8 +14,7 @@
 		<!--link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css"-->
 		<link href="styles/main.less" rel="stylesheet/less" type="text/css">
 		<link href="styles/popup.less" rel="stylesheet/less" type="text/css">
-		
-	
+
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -26,7 +25,7 @@
 	<script src="scripts/libs/less.js"></script>
 	<script src="scripts/libs/protovis.js"></script>
 	<script src="scripts/popup.js"></script>
-	<script src="script/popover.js"></script>
+	<script src="scripts/popover.js"></script>
 	<!--script src="scripts/libs/bootstrap.js"></script-->
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
@@ -34,6 +33,7 @@
 
 <script>
 function initialize() {
+	
 	
 	var mobile = function(){
 		return {
@@ -61,10 +61,9 @@ function initialize() {
 	
 	
 	if(mobile.detect()){
-		document.getElementById('popover').style.visibility = 'visible';
+		document.getElementById("popover").style.visibility = 'visible';
 	}
-	
-	
+		
 	var myOptions = {
 		center: new google.maps.LatLng(46.519776,6.565533),
 		zoom: 3,
@@ -155,6 +154,17 @@ function initialize() {
 
 }
 </script>
+
+<script>
+function showPopOver (){
+	document.getElementById("popover").visibility = true;
+	document.getElementById("popover").style.left = "200px";
+	document.getElementById("popover").style.top = "100px";
+	document.getElementById("popover").style.display = "block";
+}
+</script>
+
+
 </head>
 <body onload="initialize()">
 <div class="navbar navbar-fixed-top">
@@ -163,7 +173,7 @@ function initialize() {
 			<a class="brand" href="/">Fragile Oasis</a>
 			<ul class="nav">
 				<li class="active"><a href="">Map</a></li>
-				<li class="inactive"><a href="javascript:showPopup">Other</a></li>
+				<li class="inactive"><a href="javascript:showPopOver()">Categories</a></li>
 			</ul>
 			<ul class="nav pull-right">
 				<li><a href="">Log in</a></li>
@@ -172,6 +182,7 @@ function initialize() {
 	</div>
 </div>
 <div class="container">
+	<div class="popover"></div>
 	<!--div class="page-header">
 		<h1>Map</h1>
 	</div-->
