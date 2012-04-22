@@ -59,7 +59,7 @@ Check out our [public table](http://www.google.com/fusiontables/DataSource?docid
 
 ## Data Visualisation
 
-A great website is made of both a powerful backend, and a carefully designed frontend.. [Frederic Jacobs](http://www.fredericjacobs.com) and [Sacha Bron](http://twitter.com/Binary_Brain) worked exclusively on the front-end.
+A great website is made of both a powerful backend, and a carefully designed frontend. [Frederic Jacobs](http://www.fredericjacobs.com) and [Sacha Bron](http://twitter.com/Binary_Brain) are the frontend guys.
 
 ### Goal 
 
