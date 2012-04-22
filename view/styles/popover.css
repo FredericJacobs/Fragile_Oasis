@@ -1,10 +1,10 @@
-        .popover {
-        position:absolute;
-        left:50%;
-        top:130px;
-        width:280px;
-        margin:0 -118px;
-        }
+		.popover {
+			position: absolute;
+			display: none;
+			z-index: 2;
+			left:30%;
+			top:45px;
+		}
         
         .popover .popover-content {
         border:1px solid #000;
@@ -95,7 +95,7 @@
 				.switch {
 					position: relative;
 					float: right;
-					margin: 10px;
+					margin: 1px;
 					height: 28px;
 					width: 77px;
 					border: 1px solid #979797;

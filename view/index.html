@@ -61,7 +61,7 @@ function initialize() {
 	
 	
 	if(mobile.detect()){
-		document.getElementById("popover").style.visibility = 'visible';
+
 	}
 		
 	var myOptions = {
@@ -156,11 +156,12 @@ function initialize() {
 </script>
 
 <script>
+
 function showPopOver (){
-	document.getElementById("popover").style.left = "200px";
-	document.getElementById("popover").style.top = "100px";
-	document.getElementById("popover").style.display = "block";
+	document.getElementById("popover1").style.display = "block"; 
 }
+
+
 </script>
 
 
@@ -181,7 +182,7 @@ function showPopOver (){
 	</div>
 </div>
 <div class="container">
-	<div class="popover">
+	<div class="popover" id="popover1">
         <div class="popover-content">
             <div class="arrow"><span></span></div>
             <div class="popover-body">
@@ -195,7 +196,8 @@ function showPopOver (){
 					<li>Health<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
 					<li>Peace<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
 					<li>Research<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
-					<li>Water<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>		
+					<li>Water<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
+					<a href="javascript:closePopOver('pop1');">CLOSE ME</a>	
                 </ul>
             </div>
         </div>
