@@ -34,12 +34,13 @@ function updateScrollbar() {
 
 // Get Data
 function popup(json) {
+	console.log("Pop-up JSON", json);
 	// Content
 	var title = json[0];
 	var type = json[1].charAt(0).toUpperCase() + json[1].slice(1);
 	var location = json[7]+((json[5] == "" || json[7] == "") ? "" : ", ")+json[5];
 	var description = json[9];
-	var imgs = $.parseJSON(json[17]);
+	var imgs = $.parseJSON(json[18]);
 	var link1 = json[6];
 	var link2 = json[8];
 	var links = [];
@@ -52,11 +53,9 @@ function popup(json) {
 	html += "<h1>"+location+" – "+type+"</h1>";
 	html += "<h2>"+title+"</h2>";
 	html += '<div class="imgs">';
-	if(imgs != null) {
-		for(var i = 0; i < imgs.length; i++) {
-			var img = imgs[i];
-			html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a> ';
-		}
+	for(var i = 0; i < imgs.length; i++) {
+		var img = imgs[i];
+		html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a> ';
 	}
 	
 	html += "</div>";
@@ -83,6 +82,7 @@ function popup(json) {
 		left: marginLeft,
 		right: marginLeft
 	});
+	
 	$("#popup").animate({opacity: 1}, speed, function() {
 		$("#popup .frame").animate({top: 20, bottom: 20}, speed, function() {
 			$("#popup .frame").animate({left: 20, right: 20}, speed, function() {
