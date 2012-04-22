@@ -1,3 +1,11 @@
+function clearOverlays() {
+  if (markersArray) {
+	console.log(markersArray.length);
+    for (var i = 0; i < markersArray.length; i++ ){
+      markersArray[i].setMap(null);
+    }
+  }
+}
 function showHidePopOver(){
 	if (!popoverIsDisplayed){
 		$("#popover").css({display: "block", top: 3, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
@@ -13,6 +21,7 @@ function showHidePopOver(){
 		popoverIsDisplayed = false;
 		$("#map").addClass("active");
 		$("#categories").removeClass("active");
+		clearOverlays();
 		drawpins();
 	}
 }
@@ -49,9 +58,7 @@ function showHidePopOver(){
 					}
 				} else {
 					UnSelectedCategories.push(this.parentNode.textContent.toLowerCase());
-					
-					console.log (UnSelectedCategories);
-					
+					console.log (UnSelectedCategories);		
 				} 
 			}, false);
 		});
