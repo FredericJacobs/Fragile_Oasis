@@ -14,7 +14,6 @@
 		<link href="styles/popover.css" rel="stylesheet" type="text/css">
 		<link href="styles/main.less" rel="stylesheet/less" type="text/css">
 		<link href="styles/popup.less" rel="stylesheet/less" type="text/css">
-
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -32,7 +31,56 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
 <script>
+function drawpins() {
+
+	console.log(data[i]);
+	
+	for (i=0 ; i < data.length ; i++){
+		for (j=0; j < UnSelectedCategories.length ; j++){
+			if (data[i][categoryColumn] == UnSelectedCategories[j]){
+				data.splice([i],1);
+			}
+		}
+	}
+	
+// loop through all rows to add them to the map
+	for (var i = 0; i < data.length; i++) {
+    // Per the expected data format [25,-7.854167,131.3026], 
+    // lat is stored in d[row][1] and lon is stored in d[row][2]
+    // probability is the first element of the array
+		positionArray = data[i][positionColumn].split(',');
+		
+    	var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
+
+    	var marker = new google.maps.Marker({
+        position: latlon,
+        rowid: i,
+        map: map
+    });
+	
+		var locationObject = data[i];
+	
+    	var fn = markerClick(map, marker, locationObject);
+	
+    	google.maps.event.addListener(marker, 'click', fn);
+	}
+}
+
+function markerClick(map, m, locationObject) {
+	return function() {
+    	popup(locationObject)
+	};
+}
+</script>	
+	
+
+<script>
 function initialize() {
+	positionColumn = 4;
+	categoryColumn = 1;
+	var markersArray = [];
+	UnSelectedCategories = new Array();
+	
 	var mobile = function(){
 		return {
 			detect:function(){
@@ -59,7 +107,9 @@ function initialize() {
 	
 	
 	if(mobile.detect()){
-
+		$("#categories").css({display:"block"});
+		popoverIsDisplayed = new Boolean();
+		popoverIsDisplayed = false;
 	}
 		
 	var myOptions = {
@@ -70,12 +120,9 @@ function initialize() {
 	map = new google.maps.Map(document.getElementById("map_canvas"),
 	myOptions);
 
-	getData(3616702);
-
 	if(navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 			pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
 			map.setCenter(pos);
 		}, function() {
 			handleNoGeolocation(true);
@@ -84,7 +131,8 @@ function initialize() {
 		// Browser doesn't support Geolocation
 		handleNoGeolocation(false);
 	}
-
+	
+	getData(3616702);
 
 	function handleNoGeolocation(errorFlag) {
   		if (errorFlag) {
@@ -112,41 +160,22 @@ function initialize() {
 		var query = "SELECT * FROM " + table;
 		var queryurl = encodeURI(queryUrlHead + query + queryUrlTail);
 
-		var jqxhr = $.get(queryurl, dataHandler, "jsonp");
+		var jqxhr = $.get(queryurl, handleData, "jsonp");
 	}
-
-	function dataHandler(d) {
-    // get the actual data out of the JSON object
-    	var data = d.table.rows;
-
-		console.log(data);
-
-    // loop through all rows to add them to the map
-    	for (var i = 0; i < data.length; i++) {
-        // Per the expected data format [25,-7.854167,131.3026], 
-        // lat is stored in d[row][1] and lon is stored in d[row][2]
-        // probability is the first element of the array
-			positionArray = data[i][4].split(',');
-        	var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
-
-        	var marker = new google.maps.Marker({
-            position: latlon,
-            rowid: i,
-            map: map
-        });
-		
-			var locationObject = data[i];
-		
-        	var fn = markerClick(map, marker, locationObject);
-		
-        	google.maps.event.addListener(marker, 'click', fn);
-    	}
+	
+	function clearOverlays() {
+	  if (markersArray) {
+	    for (var i = 0; i < markersArray.length; i++ ) {
+	      markersArray[i].setMap(null);
+	    }
+	  }
 	}
+	
+	function handleData(d){
 
-	function markerClick(map, m, locationObject) {
-    	return function() {
-        	popup(locationObject)
-    	};
+		data = d.table.rows;
+		drawpins();
+		
 	}
 
 }
@@ -159,8 +188,8 @@ function initialize() {
 		<div class="container">
 			<a class="brand" href="/">Fragile Oasis</a>
 			<ul class="nav" id="nav">
-				<li class="active"><a href="">Map</a></li>
-				<li id="categories"><a href="javascript:showPopOver()">Categories</a></li>
+				<li id ="map" class="active"><a href="">Map</a></li>
+				<li id="categories"><a href="javascript:showHidePopOver()">Categories</a></li>
 			</ul>
 		</div>
 	</div>
@@ -194,7 +223,6 @@ function initialize() {
 					<li>Peace<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
 					<li>Research<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
 					<li>Water<div class="switch on"><span class="thumb"></span><input type="checkbox"></div></li>
-					<a href="javascript:closePopOver('pop1');">CLOSE ME</a>	
                 </ul>
             </div>
         </div>

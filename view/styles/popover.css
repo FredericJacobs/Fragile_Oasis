@@ -1,3 +1,7 @@
+		#categories {
+		display : none;
+		}
+		
 		.popover {
 			position: absolute;
 			display: none;

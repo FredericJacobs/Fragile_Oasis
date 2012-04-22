@@ -1,7 +1,28 @@
+function showHidePopOver(){
+	if (!popoverIsDisplayed){
+		$("#popover").css({display: "block", top: 3, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
+		$("#popover .arrow").css({top: -$("#popover .arrow").innerHeight()+1, left: $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2});
+		popoverIsDisplayed = true;
+		$("#map").removeClass("active");
+		$("#categories").addClass("active");
+		
+	}
+	
+	else {
+		$("#popover").css({display: "none"});
+		popoverIsDisplayed = false;
+		$("#map").addClass("active");
+		$("#categories").removeClass("active");
+		drawpins();
+	}
+}
+
 (function() {
 	var $$ = function(selector) {
 		return Array.prototype.slice.call(document.querySelectorAll(selector));
 	}
+	
+	
 	document.addEventListener("DOMContentLoaded", function() {
 		var checkbox;
 		var result = document.querySelector("#result");
@@ -20,16 +41,20 @@
 				checkbox = switchControl.lastElementChild;
 				checkbox.checked = !checkbox.checked;
 				if (checkbox.checked === true) {
-					console.log(this.parentNode.textContent.toLowerCase());
+					
+					for (i=0; i < UnSelectedCategories.length; i++){
+						if (UnSelectedCategories[i]==this.parentNode.textContent.toLowerCase()){
+							UnSelectedCategories.splice(i,1);
+						}
+					}
 				} else {
-					console.log(this.parentNode.textContent.toLowerCase());
-				}
+					UnSelectedCategories.push(this.parentNode.textContent.toLowerCase());
+					
+					console.log (UnSelectedCategories);
+					
+				} 
 			}, false);
 		});
 	}, false);
 })();
 
-function showPopOver() {
-	$("#popover").css({display: "block", top: 3, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
-	$("#popover .arrow").css({top: -$("#popover .arrow").innerHeight()+1, left: $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2});
-}
