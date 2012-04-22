@@ -10,7 +10,7 @@ http://spaceappsch.github.com/Fragile_Oasis
 
 [Fragile Oasis](http://www.fragileoasis.org) is an effort to get everyone to see the Earth as a single home for humanity, and to inspire people to make a difference, changing things for the better. Our mashup focuses on giving a great UX on the Fragile Oasis dataset by means of geolocalization, category filtering, data enhancement from multiple sources, etc.
 
-## Project & Team ?
+## Project & Team
 
 This project was developed during the 2-days [*International Space Apps Challenge*](http://spaceappschallenge.org/), a hackathon organized by NASA that was run on every continent on Earth (and even on the ISS!). Our team was located in Lausanne, Switzerland.
 
