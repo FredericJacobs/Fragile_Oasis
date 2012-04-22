@@ -1,3 +1,11 @@
+Fragile Oasis - Map & Discovery Experience
+Version 0.1
+Copyright (C) 2012 Michele Catasta, Frederic Jacobs, Sacha Bron
+Licensed under the The MIT License
+
+Project Page:
+http://spaceappsch.github.com/Fragile_Oasis
+
 # What is Fragile Oasis ?
 
 Fragile Oasis is an effort to get everyone to see the Earth as a single home for humanity, and to inspire people to make a difference, change things for the better. This projects focus on brining a convenient way of browsing Fragile's Oasis inputs.
