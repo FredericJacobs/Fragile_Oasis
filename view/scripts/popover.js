@@ -1,4 +1,4 @@
-(function() {	
+(function() {
 	var $$ = function(selector) {
 		return Array.prototype.slice.call(document.querySelectorAll(selector));
 	}
@@ -27,4 +27,9 @@
 			}, false);
 		});
 	}, false);
-})()
+})();
+
+function showPopOver() {
+	$("#popover").css({display: "block", top: 3, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
+	$("#popover .arrow").css({top: -$("#popover .arrow").innerHeight()+1, left: $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2});
+}

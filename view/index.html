@@ -10,8 +10,8 @@
 	
 	<!-- Styles -->
 		<link href="styles/bootstrap.css" rel="stylesheet" type="text/css">
-		<link href="styles/popover.css" rel="stylesheet" type="text/css">
 		<!--link href="styles/bootstrap-responsive.css" rel="stylesheet" type="text/css"-->
+		<link href="styles/popover.css" rel="stylesheet" type="text/css">
 		<link href="styles/main.less" rel="stylesheet/less" type="text/css">
 		<link href="styles/popup.less" rel="stylesheet/less" type="text/css">
 
@@ -155,25 +155,15 @@ function initialize() {
 }
 </script>
 
-<script>
-
-function showPopOver (){
-	document.getElementById("popover1").style.display = "block"; 
-}
-
-
-</script>
-
-
 </head>
 <body onload="initialize()">
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
 			<a class="brand" href="/">Fragile Oasis</a>
-			<ul class="nav">
+			<ul class="nav" id="nav">
 				<li class="active"><a href="">Map</a></li>
-				<li class="inactive"><a href="javascript:showPopOver()">Categories</a></li>
+				<li id="categories"><a href="javascript:showPopOver()">Categories</a></li>
 			</ul>
 			<ul class="nav pull-right">
 				<li><a href="">Log in</a></li>
@@ -182,7 +172,7 @@ function showPopOver (){
 	</div>
 </div>
 <div class="container">
-	<div class="popover" id="popover1">
+	<div class="popover" id="popover">
         <div class="popover-content">
             <div class="arrow"><span></span></div>
             <div class="popover-body">
