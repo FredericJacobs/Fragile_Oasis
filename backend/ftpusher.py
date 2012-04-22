@@ -22,6 +22,9 @@ class FTPusher:
     token = ClientLogin().authorize(USERNAME, password)
     self.ft_client = ftclient.ClientLoginFTClient(token)
 
+  def create_table(self, schema):
+    self.ft_client.query(SQL().createTable(schema))
+
   def populate_table(self, data):
     for row in data:
       proj_id = row['id']
@@ -38,3 +41,4 @@ class FTPusher:
         self.ft_client.query(SQL().insert(TABLE_ID, row))
       print '.',
       sys.stdout.flush()
+
