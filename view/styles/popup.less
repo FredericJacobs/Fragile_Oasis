@@ -21,64 +21,82 @@
 		height: 100%;
 		background-color: rgba(0, 0, 0, 0.5);
 		cursor: pointer;
+	}
+	
+	.frame {
+		cursor: default;
+		position: absolute;
+		background-color: #EEE;
+		border-radius: 10px;
+		border: 1px solid #CCC;
+		overflow: hidden;
 		
-		.frame {
-			cursor: default;
-			position: absolute;
-			top: 200px;
-			bottom: 200px;
-			left: 200px;
-			right: 200px;
-			background-color: #EEE;
+		.scrollbar {
+			width: 7px;
+			height: 700px;
+			background: rgba(0, 0, 0, 0.4);
 			border-radius: 10px;
-			border: 1px solid #CCC;
-			overflow: hidden;
+			position: absolute;
+			top: 5px;
+			right: 10px;
+			visibility: hidden;
+		}
+		
+		.wrapper {
+			position: absolute;
+			top: 0px;
+			bottom: 0px;
+			left: 0px;
+			right: -20px;
+			padding-right: 20px;
+			overflow-y: scroll;
+			overflow-x: auto;
 			
-			.scrollbar {
-				width: 7px;
-				height: 700px;
-				background: rgba(0, 0, 0, 0.4);
-				border-radius: 10px;
-				position: absolute;
-				top: 5px;
-				right: 10px;
-				visibility: hidden;
-			}
-			
-			.wrapper {
-				position: absolute;
-				top: 0px;
-				bottom: 0px;
-				left: 0px;
-				right: -20px;
-				padding-right: 20px;
-				overflow-y: scroll;
-				overflow-x: auto;
+			.content {
+				padding: 20px;
+				position: relative;
+				overflow: hidden;
+				opacity: 0;
 				
-				.content {
-					padding: 20px;
-					position: relative;
-					overflow: hidden;
-					opacity: 0;
-					
-					.imgs {
+				.description {
+					max-width: 500px;
+				}
+				
+				.imgs, h2 {
+					margin-bottom: 10px;
+				}
+				
+				iframe {
+					width: 100%;
+					margin: 10px 0px;
+					height: 500px;
+				}
+				
+				.tweets {
+					max-width: 820px;
+					.twitter-tweet-rendered {
+						clear: none !important;
+						width: 400px;
 						
+						&:nth-child(even) {
+							float: left;
+						}
+						&:nth-child(odd) {
+							float: right;
+						}
+						.twt-tweet .twt-media {
+							display: none !important;
+						}
 					}
-					
-					p {
-						max-width: 500px;
-					}
-					
-					img, h2 {
-						margin-bottom: 10px;
-					}
-					
-					iframe {
-						width: 50%;
-						max-width: 726px;
-						margin: 10px;
-						height: 500px;
-					}
+
+					/*.row::after {
+						content: ".";
+						display: block;
+						clear: both;
+						visibility: hidden;
+						line-height: 0;
+						height: 0;
+					}*/
 				}
 			}
 		}

@@ -1,5 +1,7 @@
 // Scollbar
 var scrollbarVisible = false;
+var animation = true;
+
 $().ready(function() {
 	$(".wrapper").bind("scroll", function() {updateScrollbar()});
 	$(window).bind("resize", function() {updateScrollbar()});
@@ -34,7 +36,6 @@ function updateScrollbar() {
 // Get Data
 function popup(json) {
 	// Content
-	console.log(json);
 	var title = json[0];
 	var type = json[1].charAt(0).toUpperCase() + json[1].slice(1);
 	var location = json[7]+((json[5] == "" || json[7] == "") ? "" : ", ")+json[5];
@@ -49,14 +50,15 @@ function popup(json) {
 	if(link2 != "")
 		links.push(link2);
 	var followers = $.parseJSON(json[15]);
+	loadTweets(loc);
 	
 	var html = "";
-	html += "<h1>"+location+" – "+type+"</h1>";
+	html += "<h1>"+location+" &mdash; "+type+"</h1>";
 	html += "<h2>"+title+"</h2>";
 	html += '<div class="imgs">';
 	for(var i = 0; i < imgs.length; i++) {
 		var img = imgs[i];
-		html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a> ';
+		html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a>';
 	}
 	html += "</div>";
 	
@@ -66,24 +68,28 @@ function popup(json) {
 	}
 
 	html += "</div>";
-	html += "<p>"+description+"</p>";
-
+	html += '<p class="description">'+description+"</p>";
+	
 	for(var i = 0; i < links.length; i++) {
 		var link = links[i];
 		html += '<iframe src="'+link+'"/>';
 	}
-
-	console.log(loadTweets(loc));
+	
+	html += '<div class="tweets"><img src="img/loading-bar.gif" alt="Loading..."></div>';
 	
 	$("#popup .content").html(html);
 	
 	// Open Pop-up
-	var speed = "slow";
+	if(animation)
+		var speed = "slow";
+	else
+		var speed = 0;
+	
 	$("#popup").css({display: "block"});
 	var height = 200;
-	var width = 200;
-	var marginTop = $("body>.container").innerHeight()/2-height/2;
-	var marginLeft = $("body>.container").innerWidth()/2-width/2;
+	var width = 280;
+	var marginTop = $("body > .container").innerHeight()/2-height/2;
+	var marginLeft = $("body > .container").innerWidth()/2-width/2;
 	
 	$("#popup .frame").css({
 		top: marginTop,
@@ -92,9 +98,17 @@ function popup(json) {
 		right: marginLeft
 	});
 	
+	// max-width: 875px;
+	var containerW = $("body > .container").innerWidth();
+	var newWidth = (containerW/2-20)*2;
+	if(newWidth >= 875)
+		newWidth = 875;
+
+	var finalMarginLeft = (containerW-newWidth)/2;
+		
 	$("#popup").animate({opacity: 1}, speed, function() {
 		$("#popup .frame").animate({top: 20, bottom: 20}, speed, function() {
-			$("#popup .frame").animate({left: 20, right: 20}, speed, function() {
+			$("#popup .frame").animate({left: finalMarginLeft, right: finalMarginLeft}, speed, function() {
 				updateScrollbar();
 				$("#popup .content").animate({opacity: 1}, speed);
 			});
@@ -102,17 +116,53 @@ function popup(json) {
 	});
 
 	function loadTweets(loc) {
-		var range = 10;
-		var tweets = $.get("http://search.twitter.com/search.json?rpp=10&include_entities=true&result_type=mixed&geocode="+loc+","+range+"mi");
-		return html;
+		var range = 30;
+		var callback = addTweets;
+		$("head").append('<script id="tweets" src="http://search.twitter.com/search.json?rpp=10&include_entities=true&result_type=mixed&geocode='+loc+','+range+'mi&callback=addTweets"></script>');
 	}
+}
+
+function addTweets(tweetJson) {
+	var mention = false;
+	var tweetHtml = "";
+	tweets = tweetJson.results;
+	
+	tweetHtml += "<h2>Twitter</h2>";
+	var N = 10;
+	var n = N;
+	for(var i = 0; i < tweets.length && i < n; i++) {
+		var id = tweets[i].id_str;
+		var text = tweets[i].text;
+		var date = tweets[i].created_at;
+		var user = tweets[i].from_user;
+		var userName = tweets[i].from_user_name;
+		console.log(":",userName);
+		var userId = tweets[i].from_user_id;
+		var retweet = tweets[i].metadata.recent_retweets;
+		var img = tweets[i].profile_image_url;
+		
+		if(text.charAt(0) != "@" || mention) {
+			tweetHtml += '<blockquote class="twitter-tweet">';
+			tweetHtml += '<p>'+text+'</p>';
+			tweetHtml += '&mdash; '+userName+' (@'+user+') <a href="https://twitter.com/'+user+'/status/'+id+'">'+date+'</a>';
+			tweetHtml += '</blockquote>';
+
+			if((N-n+i)%2 === 1)
+				tweetHtml += "<div style='clear:both;'></div>";
+		}
+		else
+			n++;
+	}
+	tweetHtml += '<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
+	tweetHtml += '</div>';
+	$("#popup .tweets").html(tweetHtml);
 }
 
 function closePopup() {
 	var height = 200;
 	var width = 200;
-	var marginTop = $("body>.container").innerHeight()/2-height/2;
-	var marginLeft = $("body>.container").innerWidth()/2-width/2;
+	var marginTop = $("body > .container").innerHeight()/2-height/2;
+	var marginLeft = $("body > .container").innerWidth()/2-width/2;
 	
 	$("#popup .content").html("");
 	$("#popup").animate({opacity: 0}, "slow", function() {

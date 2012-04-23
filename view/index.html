@@ -32,7 +32,7 @@
 	<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 	<script src="scripts/visualization.js" type="text/javascript+protovis"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
+	<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 	
 <script>
 function initialize() {
@@ -74,7 +74,7 @@ function initialize() {
 		
 	var myOptions = {
 		center: new google.maps.LatLng(46.519776,6.565533),
-		zoom: 5,
+		zoom: 3,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	map = new google.maps.Map(document.getElementById("map_canvas"),
@@ -142,7 +142,7 @@ function drawpins() {
 			}
 		}
 	}
-	console.log (data);
+	//console.log (data);
 	
 // loop through all rows to add them to the map
 	for (var i = 0; i < data.length; i++) {
@@ -190,12 +190,12 @@ function markerClick(map, m, locationObject) {
 <div class="container">
 	<div id="popup">
 		<div class="mask" onclick="closePopup()">
-			<div class="frame">
-				<div id="close" onclick="closePopup()"><i class="icon-remove"></i></div>
-				<div class="scrollbar"></div>
-				<div class="wrapper">
-					<div class="content">
-					</div>
+		</div>
+		<div class="frame">
+			<div id="close" onclick="closePopup()"><i class="icon-remove"></i></div>
+			<div class="scrollbar"></div>
+			<div class="wrapper">
+				<div class="content">
 				</div>
 			</div>
 		</div>
