@@ -1,11 +1,3 @@
-Fragile Oasis Mashup  
-Version 0.1  
-Copyright (C) 2012 Michele Catasta, Frederic Jacobs, Sacha Bron  
-Licensed under The MIT License  
-
-Project Page:
-http://spaceappsch.github.com/Fragile_Oasis
-
 # What is Fragile Oasis?
 
 [Fragile Oasis](http://www.fragileoasis.org) is an effort to get everyone to see the Earth as a single home for humanity, and to inspire people to make a difference, changing things for the better. Our mashup focuses on giving a great UX on the Fragile Oasis dataset by means of geolocalization, category filtering, data enhancement from multiple sources, etc.
@@ -25,6 +17,8 @@ During the last one, with my feet anchored in clamps on the end of the space sta
 At the top of the arc, I was 100 feet above the space station with the Earth 250 miles below. It was absolutely incredible to see this enormous orbiting space station --  the tremendous achievement of sixteen diverse nations working together on Earth to accomplish a goal in space. Seeing humanity’s magnificent accomplishment against the backdrop of our indescribably beautiful Earth 250 miles below took my breath away. I wasn’t just looking down at the Earth.  I was looking at a planet hanging in the blackness of space.
 
 # What did we build ?
+
+![CrossPlatform](http://cl.ly/G3Nc)
 
 ## Backend & Data Enhancement
 
@@ -92,3 +86,11 @@ If you're interested in an initiative, just click a marker to know more about it
 We will also show Twitter feeds based both on the location and on the initiatives. 
 
 We would also love to redesign the detailed view. Improving the CSS should be enough since the data handling is already implemented.
+
+Fragile Oasis Mashup  
+Version 0.1  
+Copyright (C) 2012 Michele Catasta, Frederic Jacobs, Sacha Bron  
+Licensed under The MIT License  
+
+Project Page:
+http://spaceappsch.github.com/Fragile_Oasis
