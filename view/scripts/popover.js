@@ -9,12 +9,11 @@ function clearOverlays() {
 
 function showHidePopOver() {
 	if (!popoverIsDisplayed) {
-		$("#popover").css({display: "block", top: 46, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
+		$("#popover").css({display: "block", top: 6, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
 		$("#popover .arrow").css({top: -$("#popover .arrow").innerHeight()+1, left: $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2});
 		popoverIsDisplayed = true;
 		$("#map").removeClass("active");
 		$("#categories").addClass("active");
-		
 	}
 	
 	else {

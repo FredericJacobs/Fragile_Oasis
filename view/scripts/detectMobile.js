@@ -7,7 +7,7 @@ var list = [
 	"ipod","android","iPad", "ipad"
 ];
 
-var uagent = navigator.userAgent.toLowerCase(); 
+var uagent = navigator.userAgent.toLowerCase();
 isMobile = false;
 
 for(var d=0;d<list.length;d+=1){

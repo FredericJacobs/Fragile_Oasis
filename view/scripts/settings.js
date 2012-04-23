@@ -5,6 +5,6 @@ function showSettings() {
 		openSettings();
 }
 
-function showSettings() {
+function openSettings() {
 	alert("Not implemented yet...");
 }
