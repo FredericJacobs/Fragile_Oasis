@@ -18,7 +18,7 @@ At the top of the arc, I was 100 feet above the space station with the Earth 250
 
 # What did we build ?
 
-![CrossPlatform](http://cl.ly/G3Nc)
+![CrossPlatform](http://f.cl.ly/items/2b0n0w033A2E0o2X2N34/FragileOasis_CrossPlatform.png)
 
 ## Backend & Data Enhancement
 
