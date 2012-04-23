@@ -1,13 +1,14 @@
 function clearOverlays() {
-  if (markersArray) {
-	console.log(markersArray.length);
-    for (var i = 0; i < markersArray.length; i++ ){
-      markersArray[i].setMap(null);
-    }
-  }
+	if (markersArray) {
+		console.log(markersArray.length);
+		for (var i = 0; i < markersArray.length; i++ ){
+			markersArray[i].setMap(null);
+		}
+	}
 }
-function showHidePopOver(){
-	if (!popoverIsDisplayed){
+
+function showHidePopOver() {
+	if (!popoverIsDisplayed) {
 		$("#popover").css({display: "block", top: 46, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
 		$("#popover .arrow").css({top: -$("#popover .arrow").innerHeight()+1, left: $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2});
 		popoverIsDisplayed = true;
