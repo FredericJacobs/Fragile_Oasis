@@ -4,10 +4,7 @@ function initialize() {
 	markersArray = [];
 	UnSelectedCategories = new Array();
 	
-	if(isMobile) {
-		popoverIsDisplayed = new Boolean();
-		popoverIsDisplayed = false;
-	}
+	popoverIsDisplayed = false;
 	
 	var myOptions = {
 		center: new google.maps.LatLng(46.519776,6.565533),

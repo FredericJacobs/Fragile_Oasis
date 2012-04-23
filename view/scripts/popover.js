@@ -9,11 +9,18 @@ function clearOverlays() {
 
 function showHidePopOver() {
 	if (!popoverIsDisplayed) {
-		$("#popover").css({display: "block", top: 6, left: $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2});
-		$("#popover .arrow").css({top: -$("#popover .arrow").innerHeight()+1, left: $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2});
+		var borderRadius = 12
+		popLeft = $("body").outerWidth(true)/2-$("#popover").outerWidth(true)/2;
+		if(popLeft+$("#popover").outerWidth(true)-borderRadius < $("#categories").offset().left+$("#categories").outerWidth() || false)
+			popLeft = $("#categories").offset().left+$("#categories").outerWidth()-$("#popover").outerWidth(true)+borderRadius;
+		$("#popover").css({display: "block", top: 6, left: popLeft});
+		
+		var aLeft = $("#categories").offset().left+$("#categories").innerWidth()/2-$("#popover").offset().left-$("#popover .arrow").innerWidth()/2-4;
+		$("#popover .arrow").css({left: aLeft});
 		popoverIsDisplayed = true;
 		$("#map").removeClass("active");
 		$("#categories").addClass("active");
+		
 	}
 	
 	else {
