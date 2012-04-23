@@ -1,6 +1,6 @@
 // Scollbar
 var scrollbarVisible = false;
-var animation = true;
+var animation = !isMobile;
 
 $().ready(function() {
 	$(".wrapper").bind("scroll", function() {updateScrollbar()});
@@ -49,30 +49,36 @@ function popup(json) {
 		links.push(link1);
 	if(link2 != "")
 		links.push(link2);
-	var followers = $.parseJSON(json[15]);
+	followers = $.parseJSON(json[15]);
 	loadTweets(loc);
 	
 	var html = "";
 	html += "<h1>"+location+" &mdash; "+type+"</h1>";
-	html += "<h2>"+title+"</h2>";
-	html += '<div class="imgs">';
-	for(var i = 0; i < imgs.length; i++) {
-		var img = imgs[i];
-		html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a>';
-	}
-	html += "</div>";
+	html += '<h2 class="noBorder">'+title+"</h2>";
 	
+	if(imgs.length > 0) {
+		html += '<div class="imgs">';
+		html += "<h2>Pictures</h2>";
+		for(var i = 0; i < imgs.length; i++) {
+			var img = imgs[i];
+			html += '<a href="'+img.href+'"><img src="'+img.src+'" alt="'+img.alt+'"></a>';
+		}
+		html += "</div>";
+	}
+
+	html += "<h2>Followers</h2>";
 	html += '<div class="followers">';
 	for(key in followers) {
 		html += '<a href="'+key+'">'+followers[key]+"</a> ";
 	}
-
 	html += "</div>";
+
+	html += "<h2>Description</h2>";
 	html += '<p class="description">'+description+"</p>";
 	
 	for(var i = 0; i < links.length; i++) {
 		var link = links[i];
-		html += '<iframe src="'+link+'"/>';
+		//html += '<iframe src="'+link+'"/>';
 	}
 	
 	html += '<div class="tweets"><img src="img/loading-bar.gif" alt="Loading..."></div>';
@@ -126,35 +132,36 @@ function addTweets(tweetJson) {
 	var mention = false;
 	var tweetHtml = "";
 	tweets = tweetJson.results;
-	
-	tweetHtml += "<h2>Twitter</h2>";
-	var N = 10;
-	var n = N;
-	for(var i = 0; i < tweets.length && i < n; i++) {
-		var id = tweets[i].id_str;
-		var text = tweets[i].text;
-		var date = tweets[i].created_at;
-		var user = tweets[i].from_user;
-		var userName = tweets[i].from_user_name;
-		console.log(":",userName);
-		var userId = tweets[i].from_user_id;
-		var retweet = tweets[i].metadata.recent_retweets;
-		var img = tweets[i].profile_image_url;
-		
-		if(text.charAt(0) != "@" || mention) {
-			tweetHtml += '<blockquote class="twitter-tweet">';
-			tweetHtml += '<p>'+text+'</p>';
-			tweetHtml += '&mdash; '+userName+' (@'+user+') <a href="https://twitter.com/'+user+'/status/'+id+'">'+date+'</a>';
-			tweetHtml += '</blockquote>';
 
-			if((N-n+i)%2 === 1)
-				tweetHtml += "<div style='clear:both;'></div>";
+	if(tweets.length > 0) {
+		tweetHtml += "<h2>Twitter</h2>";
+		var N = 10;
+		var n = N;
+		for(var i = 0; i < tweets.length && i < n; i++) {
+			var id = tweets[i].id_str;
+			var text = tweets[i].text;
+			var date = tweets[i].created_at;
+			var user = tweets[i].from_user;
+			var userName = tweets[i].from_user_name;
+			var userId = tweets[i].from_user_id;
+			var retweet = tweets[i].metadata.recent_retweets;
+			var img = tweets[i].profile_image_url;
+			
+			if(text.charAt(0) != "@" || mention) {
+				tweetHtml += '<blockquote class="twitter-tweet">';
+				tweetHtml += '<p>'+text+'</p>';
+				tweetHtml += '&mdash; '+userName+' (@'+user+') <a href="https://twitter.com/'+user+'/status/'+id+'">'+date+'</a>';
+				tweetHtml += '</blockquote>';
+
+				if((N-n+i)%2 === 1)
+					tweetHtml += "<div style='clear:both;'></div>";
+			}
+			else
+				n++;
 		}
-		else
-			n++;
+		tweetHtml += '<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
+		tweetHtml += '</div>';
 	}
-	tweetHtml += '<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
-	tweetHtml += '</div>';
 	$("#popup .tweets").html(tweetHtml);
 }
 

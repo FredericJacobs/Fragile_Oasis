@@ -23,6 +23,7 @@
 		<![endif]-->
 	
 	<!-- Scripts -->
+	<script src="scripts/detectMobile.js"></script>
 	<script src="scripts/libs/jquery.js"></script>
 	<script src="scripts/libs/less.js"></script>
 	<script src="scripts/libs/protovis.js"></script>
@@ -41,32 +42,7 @@ function initialize() {
 	markersArray = [];
 	UnSelectedCategories = new Array();
 	
-	var mobile = function(){
-		return {
-			detect:function(){
-				var uagent = navigator.userAgent.toLowerCase(); 
-				var list = this.mobiles;
-				var ismobile = false;
-				for(var d=0;d<list.length;d+=1){
-					if(uagent.indexOf(list[d])!=-1){
-						ismobile = true;
-					}
-				}
-				return ismobile;
-			},
-			mobiles:[
-				"midp","240x320","blackberry","netfront","nokia","panasonic",
-				"portalmmm","sharp","sie-","sonyericsson","symbian",
-				"windows ce","benq","mda","mot-","opera mini",
-				"philips","pocket pc","sagem","samsung","sda",
-				"sgh-","vodafone","xda","palm","iphone",
-				"ipod","android","iPad", "ipad"
-			]
-		};
-	}();
-	
-	
-	if(mobile.detect()){
+	if(isMobile){
 		$("#categories").css({display:"inline"});
 		popoverIsDisplayed = new Boolean();
 		popoverIsDisplayed = false;
@@ -142,7 +118,6 @@ function drawpins() {
 			}
 		}
 	}
-	//console.log (data);
 	
 // loop through all rows to add them to the map
 	for (var i = 0; i < data.length; i++) {
