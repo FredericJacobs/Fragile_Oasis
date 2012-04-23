@@ -71,6 +71,10 @@
 					border: none;
 				}
 				
+				.imgs img {
+					margin-right: 5px;
+				}
+				
 				iframe {
 					width: 100%;
 					margin: 10px 0px;
@@ -79,29 +83,27 @@
 				
 				.tweets {
 					max-width: 820px;
+					
 					.twitter-tweet-rendered {
 						clear: none !important;
 						width: 400px;
 						
-						&:nth-child(even) {
-							float: left;
-						}
-						&:nth-child(odd) {
-							float: right;
-						}
 						.twt-tweet .twt-media {
 							display: none !important;
 						}
 					}
-
-					/*.row::after {
-						content: ".";
-						display: block;
-						clear: both;
-						visibility: hidden;
-						line-height: 0;
-						height: 0;
-					}*/
+				}
+				
+				.tweets.floating {
+					.twitter-tweet-rendered {
+						&:nth-child(even) {
+							float: left;
+						}
+						
+						&:nth-child(odd) {
+							float: right;
+						}
+					}
 				}
 			}
 		}
