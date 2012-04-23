@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+	  	
+		var excel = new ActiveXObject("Excel.Application");
+		var sheet = excel.WorkBooks.Open("http://spreadsheets.google.com/pub?key=0ArfEDsV3bBwCcGhBd2NOQVZ1eWowNVpSNjl1c3lRSWc&output=xls").ActiveSheet;
+		
+		var country = "Austria";
+		var Row = 2;
+		var Column = 2;
+		var bug = 1000;
+		
+		for (var i = 2; sheet.Cells(i, 1).Value != country && i < bug; i++) Row++;
+		for (var j = 2; sheet.Cells(Row, j).Value == undefined && j < bug; j++) Column++;
+
+		var data = new google.visualization.arrayToDataTable([['Year', country], [sheet.Cells(1, Column).Value, sheet.Cells(Row, Column).Value]]);
+		for (var j = Column + 1; sheet.Cells(1, j).Value != undefined; j++) {
+			data.addRow([sheet.Cells(1, j).Value, sheet.Cells(Row, j).Value]);
+		}
+				
+        var options = {
+          title: sheet.Cells(1, 1).Value,
+          hAxis: {title: 'Time'}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+    </script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
