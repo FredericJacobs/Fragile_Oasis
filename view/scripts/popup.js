@@ -102,19 +102,20 @@ function popup(json) {
 function openPopupFast() {
 	$("#popup").css({display: "block"});
 	
-	// max-width: 875px;
 	var containerW = $("body > .container").innerWidth();
 	var newWidth = (containerW/2-20)*2;
 	if(newWidth >= 875) {
 		newWidth = 875;
 		$("#popup .tweets").addClass("floating");
 	}
-
+	
 	var finalMarginLeft = (containerW-newWidth)/2;
 	
 	$("#popup").css({display: "block", opacity: 1});
 	$("#popup .frame").css({top: 20, bottom: 20, left: finalMarginLeft, right: finalMarginLeft});
 	$("#popup .content").animate({opacity: 1});
+	//if($("#popup .content").innerWidth() < $("#popup .twitter-tweet-rendered").width())
+		//$("#popup .twitter-tweet-rendered").css({width: "100%"});
 	updateScrollbar();
 }
 
