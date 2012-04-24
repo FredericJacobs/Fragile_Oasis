@@ -158,7 +158,7 @@ function addTweets(tweetJson) {
 	tweets = tweetJson.results;
 
 	if(tweets.length > 0) {
-		tweetHtml += "<h2>Twitter</h2>";
+		tweetHtml += "<h2>Tweets Around Here</h2>";
 		var N = 10;
 		var n = N;
 		for(var i = 0; i < tweets.length && i < n; i++) {
