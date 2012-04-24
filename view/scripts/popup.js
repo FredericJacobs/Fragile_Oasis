@@ -36,7 +36,9 @@ function updateScrollbar() {
 // Get Data
 function popup(json) {
 	// Content
-	var title = json[0];
+	console.log(json);
+	var title = json[0].charAt(0).toUpperCase() + json[0].slice(1);
+	var url = json[2];
 	var type = json[1].charAt(0).toUpperCase() + json[1].slice(1);
 	var location = json[7]+((json[5] == "" || json[7] == "") ? "" : ", ")+json[5];
 	var description = json[9];
@@ -54,7 +56,7 @@ function popup(json) {
 	
 	var html = "";
 	html += "<h1>"+location+" &mdash; "+type+"</h1>";
-	html += '<h2 class="noBorder">'+title+"</h2>";
+	html += '<h2 class="noBorder"><a href="'+url+'" target="_blank">'+title+"</a></h2>";
 	
 	if(imgs.length > 0) {
 		html += '<div class="imgs">';
