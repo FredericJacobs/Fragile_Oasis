@@ -1,5 +1,5 @@
 function showSettings() {
-	if(isMobile)
+	if(isMobile || true)
 		showHidePopOver();
 	else
 		openSettings();

@@ -15,6 +15,3 @@ for(var d=0;d<list.length;d+=1){
 		isMobile = true;
 	}
 }
-
-// DEV
-isMobile = true;
