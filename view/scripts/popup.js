@@ -36,7 +36,6 @@ function updateScrollbar() {
 // Get Data
 function popup(json) {
 	// Content
-	console.log(json);
 	var title = json[0].charAt(0).toUpperCase() + json[0].slice(1);
 	var url = json[2];
 	var type = json[1].charAt(0).toUpperCase() + json[1].slice(1);
@@ -114,8 +113,6 @@ function openPopupFast() {
 	$("#popup").css({display: "block", opacity: 1});
 	$("#popup .frame").css({top: 20, bottom: 20, left: finalMarginLeft, right: finalMarginLeft});
 	$("#popup .content").animate({opacity: 1});
-	//if($("#popup .content").innerWidth() < $("#popup .twitter-tweet-rendered").width())
-		//$("#popup .twitter-tweet-rendered").css({width: "100%"});
 	updateScrollbar();
 }
 
@@ -179,15 +176,19 @@ function addTweets(tweetJson) {
 				tweetHtml += '<p>'+text+'</p>';
 				tweetHtml += '&mdash; '+userName+' (@'+user+') <a href="https://twitter.com/'+user+'/status/'+id+'">'+date+'</a>';
 				tweetHtml += '</blockquote>';
-
+				
 				if((N-n+i)%2 === 1)
 					tweetHtml += "<div style='clear:both;'></div>";
 			}
 			else
 				n++;
 		}
-		tweetHtml += '<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
+		if(!isMobile)
+			tweetHtml += '<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>';
 		tweetHtml += '</div>';
+
+		if($("#popup .content").innerWidth() < $("#popup .twitter-tweet-rendered").width())
+			$("#popup .twitter-tweet-rendered").css({width: "100%"});
 	}
 	$("#popup .tweets").html(tweetHtml);
 }
