@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Fragile oasis by SpaceAppsCH</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Fragile oasis</h1>
+        <h2>Fragile Oasis is an effort to get everyone to see the Earth as a single home for humanity, and to inspire people to make a difference, change things for the better. This projects focus on brining a convenient way of browsing Fragile's Oasis inputs.</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/SpaceAppsCH/Fragile_Oasis/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/SpaceAppsCH/Fragile_Oasis/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/SpaceAppsCH/Fragile_Oasis" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>What is Fragile Oasis?</h1>
+
+<p><a href="http://www.fragileoasis.org">Fragile Oasis</a> is an effort to get everyone to see the Earth as a single home for humanity, and to inspire people to make a difference, changing things for the better. Our mashup focuses on giving a great UX on the Fragile Oasis dataset by means of geolocalization, category filtering, data enhancement from multiple sources, etc.</p>
+
+<h2>Project &amp; Team</h2>
+
+<p>This project was developed during the 2-days <a href="http://spaceappschallenge.org/"><em>International Space Apps Challenge</em></a>, a hackathon organized by NASA that was run on every continent on Earth (and even on the ISS!). Our team was located in Lausanne, Switzerland.</p>
+
+<p>As soon as we read about the "Fragile Oasis: Map-a-Difference" project on the <a href="http://spaceappschallenge.org/challenges/">challenges page</a>, we realized that making a difference is exactly what we look for in a hackathon! <a href="http://twitter.com/pirroh">Michele Catasta</a> pitched the mashup idea during the introductory meeting, and we formed a team with <a href="http://twitter.com/Binary_Brain">Sacha Bron</a> and <a href="http://twitter.com/FredericJacobs">Frederic Jacobs</a>. We also got help on API documentation and artwork from Florian Junker, Robin Würsch and Vito Pellizzani.</p>
+
+<h2>Motivation behind it</h2>
+
+<p>We read the blog post by <a href="http://en.wikipedia.org/wiki/Ronald_J._Garan,_Jr.">Ron Garan</a> about what Fragile Oasis really is and we thought it was a cause worth defending.</p>
+
+<blockquote>
+<p>In June 2008, I had the privilege of flying on board the Space Shuttle Discovery to the International Space Station, the most complex structure ever built. I was also privileged to conduct three spacewalks during the fourteen-day mission.
+During the last one, with my feet anchored in clamps on the end of the space station’s robotic arm, I was swept in a big arc over the top of the space station and back. 
+At the top of the arc, I was 100 feet above the space station with the Earth 250 miles below. It was absolutely incredible to see this enormous orbiting space station --  the tremendous achievement of sixteen diverse nations working together on Earth to accomplish a goal in space. Seeing humanity’s magnificent accomplishment against the backdrop of our indescribably beautiful Earth 250 miles below took my breath away. I wasn’t just looking down at the Earth.  I was looking at a planet hanging in the blackness of space.</p>
+</blockquote>
+
+<h1>What did we build ?</h1>
+
+<p><img src="http://f.cl.ly/items/2b0n0w033A2E0o2X2N34/FragileOasis_CrossPlatform.png" alt="CrossPlatform"></p>
+
+<h2>Backend &amp; Data Enhancement</h2>
+
+<p><a href="http://twitter.com/pirroh">Michele Catasta</a> is our backend guy. He wrote a small daemon in Python that 
+uses the Fragile Oasis live feed, and runs a pipeline of pre-processing steps before storing the data. 
+For our storage layer, we used <a href="http://www.google.com/fusiontables/"><em>Google Fusion Tables</em></a>. You may ask why we didn't use a regular database. 
+Here is why :</p>
+
+<ul>
+<li><p>Fusion Tables can be made public. We followed the <a href="http://en.wikipedia.org/wiki/Open_data">Open Data philosophy</a> by allowing everybody to export our enhanced dataset in a variety of formats.</p></li>
+<li><p>They are a great way to quickly visualize data</p></li>
+<li><p>Drawing graphs is just 2 clicks away</p></li>
+<li><p>They can be queried with a SQL-like API</p></li>
+</ul><p>Check out our <a href="http://www.google.com/fusiontables/DataSource?docid=1gFh_V4C0GoIL0NmqJaSYOvmwMWrNl1MyvhYOUmg">public table</a></p>
+
+<h3>Backend dependencies</h3>
+
+<ul>
+<li><p>python-fusiontables</p></li>
+<li><p>python-requests</p></li>
+<li><p>BeautifulSoup</p></li>
+</ul><h3>External services used to enhance the dataset</h3>
+
+<ul>
+<li><p>OpenStreetMap.org: we used it to extract accurately the city and the country where the initiative is taking place (often fixing the location provided in the Fragile Oasis dataset).</p></li>
+<li><p>Freebase.com (now part of the Google APIs): we used it to extract meaningful information about the locations, to integrate it in our mashup.</p></li>
+</ul><h2>Data Visualisation</h2>
+
+<p>A great website is made of both a powerful backend, and a carefully designed frontend. <a href="http://www.fredericjacobs.com">Frederic Jacobs</a> and <a href="http://twitter.com/Binary_Brain">Sacha Bron</a> are the frontend guys.</p>
+
+<h3>Goal</h3>
+
+<p>Our goal was to bring the data from Fragile Oasis to the user with a custom UX. We started by brainstorming on what was the best way to deliver content to the visitor. We are not big fans of web apps since they are often slow, unresponsive and have huge limitations in terms of capabilities but it was our only way to get some working prototype by the end of the weekend. We took the previous points into consideration when designing the application and tried to give it a native feel.</p>
+
+<p>We ended up using some well-known Web libraries like bootstrap (from Twitter), jQuery and less. (<a href="http://morecss.org/">yes, not more</a> ;) )</p>
+
+<p>Getting the information from Google Fusion Tables proved to be tricky since they deprecated the old API and the new one isn't correctly documented yet. They are also restrictive concerning the way you can get data. </p>
+
+<h3>About the Map</h3>
+
+<p>The map itself is a Google Map. We added a custom overlay on top of that programatically. There is a way to do it with Fusion Tables, but that doesn't make markers (sometimes called pins) scriptable for custom actions and you'll end up being very limited in terms of functionality. The <a href="http://developers.google.com/maps/documentation/javascript/">Google Maps API3 for JavaScript</a> can be very painful when handling the modifications of markers, but it's still a lot more powerful.
+The map takes the user location as an input, so (on modern browsers) we can center the initial frame.</p>
+
+<h3>Categories</h3>
+
+<p>Fragile Oasis is growing steadily, and the collected initiatives are in a really broad spectrum. We built a tool to search initiatives not only by geographical locations, but also by category.
+Categories include communication, community, education, energy, environment, food, health, peace, research and water.</p>
+
+<p>** NOTE : This isn't fully supported yet - Check out this page in a few days **</p>
+
+<h3>Markers</h3>
+
+<p>The World Map is full of markers. You'll be able to visualize what exactly is going on in those locations by looking at the different markers (one for each category).
+If you're interested in an initiative, just click a marker to know more about it!</p>
+
+<h2>More to come</h2>
+
+<p>30 hours is a short amount of time! We were able only to develop the above features, but there are great opportunities to expand our mashup. We would love to get all kind of geolocalized information on top of this map, and even crowd-sourced inputs.
+We will also show Twitter feeds based both on the location and on the initiatives. </p>
+
+<p>We would also love to redesign the detailed view. Improving the CSS should be enough since the data handling is already implemented.</p>
+
+<p>Fragile Oasis Mashup<br>
+Version 0.1<br>
+Copyright (C) 2012 Michele Catasta, Frederic Jacobs, Sacha Bron<br>
+Licensed under The MIT License  </p>
+
+<p>Project Page:
+<a href="http://spaceappsch.github.com/Fragile_Oasis">http://spaceappsch.github.com/Fragile_Oasis</a></p>
+      </section>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-30901931-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
