@@ -88,6 +88,7 @@ function drawpins() {
     	var marker = new google.maps.Marker({
         position: latlon,
         rowid: i,
+		animation: google.maps.Animation.DROP,
         map: map
     });
 	
@@ -96,6 +97,7 @@ function drawpins() {
     	var fn = markerClick(map, marker, locationObject);
 		markersArray.push(marker);
     	google.maps.event.addListener(marker, 'click', fn);
+		
 	}
 }
 
