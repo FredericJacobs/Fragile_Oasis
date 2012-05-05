@@ -96,8 +96,16 @@ function drawpins() {
 	
     	var fn = markerClick(map, marker, locationObject);
     	google.maps.event.addListener(marker, 'click', fn);
-		setTimeout(markersArray.push(marker),3000);
+		markersArray.push(marker);
+		sleep(3000);
 	}
+}
+
+function sleep(ms)
+{
+	var dt = new Date();
+	dt.setTime(dt.getTime() + ms);
+	while (new Date().getTime() < dt.getTime());
 }
 
 
