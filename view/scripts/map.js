@@ -97,8 +97,13 @@ function drawpins() {
     	var fn = markerClick(map, marker, locationObject);
 		markersArray.push(marker);
     	google.maps.event.addListener(marker, 'click', fn);
-		setTimeout(function() {alert('hello');},10000);
+		setTimeout("alertMsg()",3000);
 	}
+}
+
+function alertMsg()
+{
+alert("Hello");
 }
 
 function markerClick(map, m, locationObject) {
