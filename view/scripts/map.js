@@ -97,7 +97,7 @@ function drawpins() {
     	var fn = markerClick(map, marker, locationObject);
     	google.maps.event.addListener(marker, 'click', fn);
 		markersArray.push(marker);
-		sleep(3000);
+		sleep(300);
 	}
 }
 
@@ -113,4 +113,4 @@ function markerClick(map, m, locationObject) {
 	return function() {
     	popup(locationObject)
 	};
-}
+}	
