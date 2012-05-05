@@ -76,28 +76,26 @@ function drawpins() {
 		}
 	}
 	
-	// loop through all rows to add them to the map
-	for (var i = 0; i < data.length; i++) {
-    // Per the expected data format [25,-7.854167,131.3026], 
-    // lat is stored in d[row][1] and lon is stored in d[row][2]
-    // probability is the first element of the array
-		positionArray = data[i][positionColumn].split(',');
-		
-    	var latlon = new google.maps.LatLng(positionArray[0], positionArray[1]);
+	marker(0);
+}
 
-    	var marker = new google.maps.Marker({
-        position: latlon,
-        rowid: i,
-		animation: google.maps.Animation.DROP,
+
+function marker(i){
+    if (i > data.length) return;
+    var marker;
+	positionArray = data[i][positionColumn].split(',');
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(positionArray[0], positionArray[1]),
+        animation: google.maps.Animation.DROP,
+		rowid : i,
         map: map
-    });
+        });
+	var locationObject = data[i];
 	
-		var locationObject = data[i];
-	
-    	var fn = markerClick(map, marker, locationObject);
-    	google.maps.event.addListener(marker, 'click', fn);
-		setTimeout("markersArray.push(marker);",i*3000);
-	}
+   	var fn = markerClick(map, marker, locationObject);
+   	google.maps.event.addListener(marker, 'click', fn);
+	markersArray.push(marker);
+    var t=setTimeout("marker("+(i+1)+")",2000);
 }
 
 
