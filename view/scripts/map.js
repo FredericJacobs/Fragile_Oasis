@@ -95,7 +95,7 @@ function marker(i){
    	var fn = markerClick(map, marker, locationObject);
    	google.maps.event.addListener(marker, 'click', fn);
 	markersArray.push(marker);
-    var t=setTimeout("marker("+(i+1)+")",500);
+    var t=setTimeout("marker("+(i+1)+")",50);
 }
 
 
